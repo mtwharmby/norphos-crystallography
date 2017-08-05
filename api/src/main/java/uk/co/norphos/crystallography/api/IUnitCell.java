@@ -1,7 +1,7 @@
 package uk.co.norphos.crystallography.api;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import org.apache.commons.math3.linear.RealMatrix;
+import uk.co.norphos.crystallography.api.maths.Matrix;
+import uk.co.norphos.crystallography.api.maths.Vector;
 
 /**
  * IUnitCell describes the size of the repeating 3d tile of a crystal. It 
@@ -142,15 +142,15 @@ public interface IUnitCell extends Comparable<IUnitCell> {
 	
 	/**
 	 * Return the metric tensor (G-matrix) for the real-space unit cell.
-	 * @return RealMatrix G-matrix
+	 * @return Matrix G-matrix
 	 */
-	RealMatrix getMetricTensor();
+	Matrix getMetricTensor();
 	
 	/**
 	 * Return the metric tensor of the reciprocal-space unit cell.
-	 * @return RealMatrix reciprocal-space G-matrix
+	 * @return Matrix reciprocal-space G-matrix
 	 */
-	default RealMatrix getReciprocalMetricTensor() {
+	default Matrix getReciprocalMetricTensor() {
 		return getReciprocal().getMetricTensor();
 	}
 	
@@ -164,56 +164,56 @@ public interface IUnitCell extends Comparable<IUnitCell> {
 	 * Convert a vector in Cartesian coordinates to its equivalent in the 
 	 * fractional coordinate system of this unit cell.
 	 * 
-	 * @param cartVector Vector3D in Cartesian coordinates
-	 * @return Vector3D in fractional coordinates of the current lattice
+	 * @param cartVector Vector in Cartesian coordinates
+	 * @return Vector in fractional coordinates of the current lattice
 	 */
-	default Vector3D fractionalize(Vector3D cartVector) {
-		return new Vector3D(getFractionalizationMatrix().operate(cartVector.toArray()));
+	default Vector fractionalize(Vector cartVector) {
+		return new Vector(getFractionalizationMatrix().multiply(cartVector.toArray()));
 	}
 	
 	/**
 	 * Convert a vector in fractional coordinates of this unit cell into an 
 	 * equivalent vector in Cartesian coordinates.
 	 * 
-	 * @param fracVector Vector3D in fractional coordinates
-	 * @return Vector3D in Cartesian coordinates
+	 * @param fracVector Vector in fractional coordinates
+	 * @return Vector in Cartesian coordinates
 	 */
-	default Vector3D orthogonalize(Vector3D fracVector) {
-		return new Vector3D(getOrthogonalizationMatrix().operate(fracVector.toArray()));
+	default Vector orthogonalize(Vector fracVector) {
+		return new Vector(getOrthogonalizationMatrix().multiply(fracVector.toArray()));
 	}
 	
 	/**
 	 * Return matrix to convert Cartesian coordinates into fractional 
 	 * coordinates for this unit cell's lattice.
-	 * @return RealMatrix
+	 * @return Matrix
 	 */
-	RealMatrix getFractionalizationMatrix();
+	Matrix getFractionalizationMatrix();
 	
 	/**
 	 * Return matrix to convert fractional coordinates of this unit cell's 
 	 * lattice into Cartesian coordinates.
-	 * @return RealMatrix
+	 * @return Matrix
 	 */
-	RealMatrix getOrthogonalizationMatrix();
+	Matrix getOrthogonalizationMatrix();
 	
 	/**
 	 * Calculate the length of a vector specified in fractional coordinates of 
 	 * this unit cell.
 	 * 
-	 * @param fracVec Vector3D in fractional coordinates
+	 * @param fracVec Vector in fractional coordinates
 	 * @return double length of vector
 	 */
-	double calculateLength(Vector3D fracVec);
+	double calculateLength(Vector fracVec);
 	
 	/**
 	 * Calculate the distance between two sites specified in fractional 
 	 * coordinates of this unit cell.
 	 * 
-	 * @param site1 Vector3D in fractional coordinates
-	 * @param site2 Vector3D in fractional coordinates
-	 * @return
+	 * @param site1 Vector in fractional coordinates
+	 * @param site2 Vector in fractional coordinates
+	 * @return double distance between sites
 	 */
-	default double calculateDistance(Vector3D site1, Vector3D site2) {
+	default double calculateDistance(Vector site1, Vector site2) {
 		return calculateLength(site2.subtract(site1));
 	}
 	
@@ -221,22 +221,22 @@ public interface IUnitCell extends Comparable<IUnitCell> {
 	 * Calculate the angle between two vectors specified in fractional 
 	 * coordinates of this unit cell.
 	 * 
-	 * @param fracVec1 Vector3D in fractional coordinates
-	 * @param fracVec2 Vector3D in fractional coordinates
+	 * @param fracVec1 Vector in fractional coordinates
+	 * @param fracVec2 Vector in fractional coordinates
 	 * @return double angle between vectors in radians
 	 */
-	double calculateAngle(Vector3D fracVec1, Vector3D fracVec2);
+	double calculateAngle(Vector fracVec1, Vector fracVec2);
 	
 	/**
 	 * Calculate the angle between site 1 and site3 at site2 (i.e. the angle 
 	 * between the vectors site1-site2 and site2-site3, c.f. bond angle).
 	 * 
-	 * @param site1 Vector3D in fractional coordinates
-	 * @param site2 Vector3D in fractional coordinates
-	 * @param site3 Vector3D in fractional coordinates
+	 * @param site1 Vector in fractional coordinates
+	 * @param site2 Vector in fractional coordinates
+	 * @param site3 Vector in fractional coordinates
 	 * @return double angle at site2 in radians
 	 */
-	default double calculateAngle(Vector3D site1, Vector3D site2, Vector3D site3) {
+	default double calculateAngle(Vector site1, Vector site2, Vector site3) {
 		return calculateAngle(site2.subtract(site1), site2.subtract(site3));
 	}
 	
@@ -244,13 +244,13 @@ public interface IUnitCell extends Comparable<IUnitCell> {
 	 * Calculate the angle between the planes containing site1, site2 and 
 	 * site3 and site2, site3 and site4.
 	 * 
-	 * @param site1 Vector3D in fractional coordinates
-	 * @param site2 Vector3D in fractional coordinates
-	 * @param site3 Vector3D in fractional coordinates
-	 * @param site4 Vector3D in fractional coordinates
+	 * @param site1 Vector in fractional coordinates
+	 * @param site2 Vector in fractional coordinates
+	 * @param site3 Vector in fractional coordinates
+	 * @param site4 Vector in fractional coordinates
 	 * @return double angle between planes in radians
 	 */
-	double calculateDihedralAngle(Vector3D site1, Vector3D site2, Vector3D site3, Vector3D site4);
+	double calculateDihedralAngle(Vector site1, Vector site2, Vector site3, Vector site4);
 //	
 //	/**
 //	 * Maximum {@link MillerPlane} for the given d-spacing limit.
