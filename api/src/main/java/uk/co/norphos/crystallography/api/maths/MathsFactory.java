@@ -2,11 +2,11 @@ package uk.co.norphos.crystallography.api.maths;
 
 public interface MathsFactory {
 
-    Vector buildVector(double[] vector);
+    IVector buildVector(double[] vector);
 
-    Vector buildVector(Vector vector);
+    IVector buildVector(IVector vector);
 
-    Matrix buildMatrix(double[][] matrix);
+    IMatrix buildMatrix(double[][] matrix);
 
-    Matrix buildMatrix(Matrix matrix);
+    IMatrix buildMatrix(IMatrix matrix);
 }
