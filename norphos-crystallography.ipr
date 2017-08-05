@@ -13,11 +13,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="apache-maths-connector" />
         <module name="api" />
         <module name="toolkit" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="apache-maths-connector" target="1.8" />
       <module name="api" target="1.8" />
       <module name="norphos-crystallography" target="1.8" />
       <module name="toolkit" target="1.8" />
@@ -25,6 +27,7 @@
   </component>
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apache-maths-connector" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/toolkit" charset="UTF-8" />
   </component>
@@ -206,6 +209,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/apache-maths-connector/apache-maths-connector.iml" filepath="$PROJECT_DIR$/apache-maths-connector/apache-maths-connector.iml" />
       <module fileurl="file://$PROJECT_DIR$/api/api.iml" filepath="$PROJECT_DIR$/api/api.iml" />
       <module fileurl="file://$PROJECT_DIR$/norphos-crystallography.iml" filepath="$PROJECT_DIR$/norphos-crystallography.iml" />
       <module fileurl="file://$PROJECT_DIR$/toolkit/toolkit.iml" filepath="$PROJECT_DIR$/toolkit/toolkit.iml" />
