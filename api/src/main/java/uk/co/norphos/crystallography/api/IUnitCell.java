@@ -1,7 +1,7 @@
 package uk.co.norphos.crystallography.api;
 
-import uk.co.norphos.crystallography.api.maths.Matrix;
-import uk.co.norphos.crystallography.api.maths.Vector;
+import uk.co.norphos.crystallography.api.maths.IMatrix;
+import uk.co.norphos.crystallography.api.maths.IVector;
 
 /**
  * IUnitCell describes the size of the repeating 3d tile of a crystal. It 
@@ -144,13 +144,13 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Return the metric tensor (G-matrix) for the real-space unit cell.
      * @return Matrix G-matrix
      */
-    Matrix getMetricTensor();
+    IMatrix getMetricTensor();
 
     /**
      * Return the metric tensor of the reciprocal-space unit cell.
      * @return Matrix reciprocal-space G-matrix
      */
-    default Matrix getReciprocalMetricTensor() {
+    default IMatrix getReciprocalMetricTensor() {
         return getReciprocal().getMetricTensor();
     }
 
@@ -164,11 +164,11 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Convert a vector in Cartesian coordinates to its equivalent in the
      * fractional coordinate system of this unit cell.
      *
-     * @param cartVector Vector in Cartesian coordinates
-     * @return Vector in fractional coordinates of the current lattice
+     * @param cartVector IVector in Cartesian coordinates
+     * @return IVector in fractional coordinates of the current lattice
      */
-    default Vector fractionalize(Vector cartVector) {
-//		return new Vector(getFractionalizationMatrix().multiply(cartVector.toArray()));
+    default IVector fractionalize(IVector cartVector) {
+//		return new IVector(getFractionalizationMatrix().multiply(cartVector.toArray()));
         return null; //FIXME
     }
 
@@ -176,11 +176,11 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Convert a vector in fractional coordinates of this unit cell into an
      * equivalent vector in Cartesian coordinates.
      *
-     * @param fracVector Vector in fractional coordinates
-     * @return Vector in Cartesian coordinates
+     * @param fracVector IVector in fractional coordinates
+     * @return IVector in Cartesian coordinates
      */
-    default Vector orthogonalize(Vector fracVector) {
-//		return new Vector(getOrthogonalizationMatrix().multiply(fracVector.toArray()));
+    default IVector orthogonalize(IVector fracVector) {
+//		return new IVector(getOrthogonalizationMatrix().multiply(fracVector.toArray()));
         return null; //FIXME
     }
 
@@ -189,33 +189,33 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * coordinates for this unit cell's lattice.
      * @return Matrix
      */
-    Matrix getFractionalizationMatrix();
+    IMatrix getFractionalizationMatrix();
 
     /**
      * Return matrix to convert fractional coordinates of this unit cell's
      * lattice into Cartesian coordinates.
      * @return Matrix
      */
-    Matrix getOrthogonalizationMatrix();
+    IMatrix getOrthogonalizationMatrix();
 
     /**
      * Calculate the length of a vector specified in fractional coordinates of
      * this unit cell.
      *
-     * @param fracVec Vector in fractional coordinates
+     * @param fracVec IVector in fractional coordinates
      * @return double length of vector
      */
-    double calculateLength(Vector fracVec);
+    double calculateLength(IVector fracVec);
 
     /**
      * Calculate the distance between two sites specified in fractional
      * coordinates of this unit cell.
      *
-     * @param site1 Vector in fractional coordinates
-     * @param site2 Vector in fractional coordinates
+     * @param site1 IVector in fractional coordinates
+     * @param site2 IVector in fractional coordinates
      * @return double distance between sites
      */
-    default double calculateDistance(Vector site1, Vector site2) {
+    default double calculateDistance(IVector site1, IVector site2) {
         return calculateLength(site2.subtract(site1));
     }
 
@@ -223,22 +223,22 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Calculate the angle between two vectors specified in fractional
      * coordinates of this unit cell.
      *
-     * @param fracVec1 Vector in fractional coordinates
-     * @param fracVec2 Vector in fractional coordinates
+     * @param fracVec1 IVector in fractional coordinates
+     * @param fracVec2 IVector in fractional coordinates
      * @return double angle between vectors in radians
      */
-    double calculateAngle(Vector fracVec1, Vector fracVec2);
+    double calculateAngle(IVector fracVec1, IVector fracVec2);
 
     /**
      * Calculate the angle between site 1 and site3 at site2 (i.e. the angle
      * between the vectors site1-site2 and site2-site3, c.f. bond angle).
      *
-     * @param site1 Vector in fractional coordinates
-     * @param site2 Vector in fractional coordinates
-     * @param site3 Vector in fractional coordinates
+     * @param site1 IVector in fractional coordinates
+     * @param site2 IVector in fractional coordinates
+     * @param site3 IVector in fractional coordinates
      * @return double angle at site2 in radians
      */
-    default double calculateAngle(Vector site1, Vector site2, Vector site3) {
+    default double calculateAngle(IVector site1, IVector site2, IVector site3) {
         return calculateAngle(site2.subtract(site1), site2.subtract(site3));
     }
 
@@ -246,13 +246,13 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Calculate the angle between the planes containing site1, site2 and
      * site3 and site2, site3 and site4.
      *
-     * @param site1 Vector in fractional coordinates
-     * @param site2 Vector in fractional coordinates
-     * @param site3 Vector in fractional coordinates
-     * @param site4 Vector in fractional coordinates
+     * @param site1 IVector in fractional coordinates
+     * @param site2 IVector in fractional coordinates
+     * @param site3 IVector in fractional coordinates
+     * @param site4 IVector in fractional coordinates
      * @return double angle between planes in radians
      */
-    double calculateDihedralAngle(Vector site1, Vector site2, Vector site3, Vector site4);
+    double calculateDihedralAngle(IVector site1, IVector site2, IVector site3, IVector site4);
 //	
 //	/**
 //	 * Maximum {@link MillerPlane} for the given d-spacing limit.

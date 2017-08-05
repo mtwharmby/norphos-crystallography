@@ -1,8 +1,8 @@
 package uk.co.norphos.crystallography.api;
 
-import java.util.List;
+import uk.co.norphos.crystallography.api.maths.IMatrix;
 
-import org.apache.commons.math3.linear.RealMatrix;
+import java.util.List;
 
 /**
  * FIXME
@@ -93,15 +93,15 @@ public interface ICrystal {
 	
 	/**
 	 * Return the UB matrix of this {@link ICrystal}.
-	 * @return RealMatrix
+	 * @return IMatrix
 	 */
-	RealMatrix getOrientationMatrix();
+	IMatrix getOrientationMatrix();
 	
 	/**
 	 * Change the UB matrix of this {@link ICrystal}.
-	 * @param ubMatrix RealMatrix
+	 * @param ubMatrix IMatrix
 	 */
-	void setOrientationMatrix(RealMatrix ubMatrix);
+	void setOrientationMatrix(IMatrix ubMatrix);
 	
 	/**
 	 * Calculate the density of the crystal structure, determined from the 
