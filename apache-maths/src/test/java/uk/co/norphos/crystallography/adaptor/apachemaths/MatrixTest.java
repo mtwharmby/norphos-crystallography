@@ -11,6 +11,7 @@ import uk.co.norphos.crystallography.adaptor.apachemaths.Vector;
 import uk.co.norphos.crystallography.api.maths.IMatrix;
 import uk.co.norphos.crystallography.api.maths.IVector;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class MatrixTest {
@@ -29,8 +30,8 @@ public class MatrixTest {
         double[] apacheVecExpect = apacheMat.operate(apacheVec).toArray();
 
         //Test arrays, then test vectors
-        assertEquals("Array multiplication values differ", apacheArrExpect, mat.multiplyVector(vecVals));
+        assertArrayEquals("Array multiplication values differ", apacheArrExpect, mat.multiplyVector(vecVals), 0);
         double[] vecProd = mat.multiplyVector(vec).toArray();
-        assertEquals("Vector multiplication values differ", apacheVecExpect, vecProd);
+        assertArrayEquals("Vector multiplication values differ", apacheVecExpect, vecProd, 0);
     }
 }

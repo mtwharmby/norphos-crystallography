@@ -1,11 +1,15 @@
 package uk.co.norphos.crystallography.adaptor.apachemaths;
 
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
 import uk.co.norphos.crystallography.api.maths.IVector;
 
 public class Vector implements IVector {
 
-    public Vector(double[] values) {
+    private RealVector vector;
 
+    public Vector(double[] values) {
+        vector = new ArrayRealVector(values);
     }
 
     @Override
@@ -15,6 +19,6 @@ public class Vector implements IVector {
 
     @Override
     public double[] toArray() {
-        return new double[0];
+        return vector.toArray();
     }
 }
