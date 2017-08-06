@@ -23,3 +23,6 @@ hs_err_pid*
 
 # Any files ending in ~ which get created as backups
 *~
+
+#Binary files
+*/target/*
