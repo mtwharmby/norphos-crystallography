@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     
-    <groupId>uk.co.norphos.crystallography.api</groupId>
+    <groupId>uk.co.norphos.crystallography</groupId>
     <artifactId>api</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>

@@ -18,6 +18,6 @@
     <modules>
       <module>api</module>
       <module>toolkit</module>
-    <module>apache-maths-adaptor</module>
-  </modules>
+      <module>apache-maths</module>
+    </modules>
 </project>
