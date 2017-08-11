@@ -1,10 +1,10 @@
 package uk.co.norphos.crystallography.api;
 
-import uk.co.norphos.crystallography.api.maths.IMatrix;
-import uk.co.norphos.crystallography.api.maths.IVector;
+import uk.co.norphos.crystallography.api.maths.Matrix;
+import uk.co.norphos.crystallography.api.maths.Vector;
 
 /**
- * IUnitCell describes the size of the repeating 3d tile of a crystal. It 
+ * UnitCell describes the size of the repeating 3d tile of a crystal. It
  * consists of a {@link Lattice} and provides methods to change the lattice 
  * parameters. Furthermore it allows the calculation of values derived or 
  * dependent on from the lattice (e.g. volume or d-spacing). 
@@ -12,10 +12,10 @@ import uk.co.norphos.crystallography.api.maths.IVector;
  * @author Michael Wharmby
  *
  */
-public interface IUnitCell extends Comparable<IUnitCell> {
+public interface UnitCell extends Comparable<UnitCell> {
 
     /**
-     * Return the real-space lattice parameters for this IUnitCell.
+     * Return the real-space lattice parameters for this UnitCell.
      * @return {@link Lattice}
      */
     Lattice getLattice();
@@ -85,7 +85,7 @@ public interface IUnitCell extends Comparable<IUnitCell> {
     }
 
     /**
-     * Return the reciprocal-space lattice parameters for this IUnitCell.
+     * Return the reciprocal-space lattice parameters for this UnitCell.
      * @return {@link Lattice}
      */
     default Lattice getReciprocalLattice() {
@@ -144,31 +144,31 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Return the metric tensor (G-matrix) for the real-space unit cell.
      * @return Matrix G-matrix
      */
-    IMatrix getMetricTensor();
+    Matrix getMetricTensor();
 
     /**
      * Return the metric tensor of the reciprocal-space unit cell.
      * @return Matrix reciprocal-space G-matrix
      */
-    default IMatrix getReciprocalMetricTensor() {
+    default Matrix getReciprocalMetricTensor() {
         return getReciprocal().getMetricTensor();
     }
 
     /**
-     * Return the reciprocal-space equivalent of this IUnitCell.
-     * @return IUnitCell
+     * Return the reciprocal-space equivalent of this UnitCell.
+     * @return UnitCell
      */
-    IUnitCell getReciprocal();
+    UnitCell getReciprocal();
 
     /**
      * Convert a vector in Cartesian coordinates to its equivalent in the
      * fractional coordinate system of this unit cell.
      *
-     * @param cartVector IVector in Cartesian coordinates
-     * @return IVector in fractional coordinates of the current lattice
+     * @param cartVector Vector in Cartesian coordinates
+     * @return Vector in fractional coordinates of the current lattice
      */
-    default IVector fractionalize(IVector cartVector) {
-//		return new IVector(getFractionalizationMatrix().multiply(cartVector.toArray()));
+    default Vector fractionalize(Vector cartVector) {
+//		return new Vector(getFractionalizationMatrix().multiply(cartVector.toArray()));
         return null; //FIXME
     }
 
@@ -176,11 +176,11 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Convert a vector in fractional coordinates of this unit cell into an
      * equivalent vector in Cartesian coordinates.
      *
-     * @param fracVector IVector in fractional coordinates
-     * @return IVector in Cartesian coordinates
+     * @param fracVector Vector in fractional coordinates
+     * @return Vector in Cartesian coordinates
      */
-    default IVector orthogonalize(IVector fracVector) {
-//		return new IVector(getOrthogonalizationMatrix().multiply(fracVector.toArray()));
+    default Vector orthogonalize(Vector fracVector) {
+//		return new Vector(getOrthogonalizationMatrix().multiply(fracVector.toArray()));
         return null; //FIXME
     }
 
@@ -189,33 +189,33 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * coordinates for this unit cell's lattice.
      * @return Matrix
      */
-    IMatrix getFractionalizationMatrix();
+    Matrix getFractionalizationMatrix();
 
     /**
      * Return matrix to convert fractional coordinates of this unit cell's
      * lattice into Cartesian coordinates.
      * @return Matrix
      */
-    IMatrix getOrthogonalizationMatrix();
+    Matrix getOrthogonalizationMatrix();
 
     /**
      * Calculate the length of a vector specified in fractional coordinates of
      * this unit cell.
      *
-     * @param fracVec IVector in fractional coordinates
+     * @param fracVec Vector in fractional coordinates
      * @return double length of vector
      */
-    double calculateLength(IVector fracVec);
+    double calculateLength(Vector fracVec);
 
     /**
      * Calculate the distance between two sites specified in fractional
      * coordinates of this unit cell.
      *
-     * @param site1 IVector in fractional coordinates
-     * @param site2 IVector in fractional coordinates
+     * @param site1 Vector in fractional coordinates
+     * @param site2 Vector in fractional coordinates
      * @return double distance between sites
      */
-    default double calculateDistance(IVector site1, IVector site2) {
+    default double calculateDistance(Vector site1, Vector site2) {
         return calculateLength(site2.subtract(site1));
     }
 
@@ -223,22 +223,22 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Calculate the angle between two vectors specified in fractional
      * coordinates of this unit cell.
      *
-     * @param fracVec1 IVector in fractional coordinates
-     * @param fracVec2 IVector in fractional coordinates
+     * @param fracVec1 Vector in fractional coordinates
+     * @param fracVec2 Vector in fractional coordinates
      * @return double angle between vectors in radians
      */
-    double calculateAngle(IVector fracVec1, IVector fracVec2);
+    double calculateAngle(Vector fracVec1, Vector fracVec2);
 
     /**
      * Calculate the angle between site 1 and site3 at site2 (i.e. the angle
      * between the vectors site1-site2 and site2-site3, c.f. bond angle).
      *
-     * @param site1 IVector in fractional coordinates
-     * @param site2 IVector in fractional coordinates
-     * @param site3 IVector in fractional coordinates
+     * @param site1 Vector in fractional coordinates
+     * @param site2 Vector in fractional coordinates
+     * @param site3 Vector in fractional coordinates
      * @return double angle at site2 in radians
      */
-    default double calculateAngle(IVector site1, IVector site2, IVector site3) {
+    default double calculateAngle(Vector site1, Vector site2, Vector site3) {
         return calculateAngle(site2.subtract(site1), site2.subtract(site3));
     }
 
@@ -246,13 +246,13 @@ public interface IUnitCell extends Comparable<IUnitCell> {
      * Calculate the angle between the planes containing site1, site2 and
      * site3 and site2, site3 and site4.
      *
-     * @param site1 IVector in fractional coordinates
-     * @param site2 IVector in fractional coordinates
-     * @param site3 IVector in fractional coordinates
-     * @param site4 IVector in fractional coordinates
+     * @param site1 Vector in fractional coordinates
+     * @param site2 Vector in fractional coordinates
+     * @param site3 Vector in fractional coordinates
+     * @param site4 Vector in fractional coordinates
      * @return double angle between planes in radians
      */
-    double calculateDihedralAngle(IVector site1, IVector site2, IVector site3, IVector site4);
+    double calculateDihedralAngle(Vector site1, Vector site2, Vector site3, Vector site4);
 //	
 //	/**
 //	 * Maximum {@link MillerPlane} for the given d-spacing limit.
@@ -271,12 +271,12 @@ public interface IUnitCell extends Comparable<IUnitCell> {
 //	double calculateDSpacing(MillerPlane hkl);
 //	
 //	/**
-//	 * Determine whether this IUnitCell is similar to another one, within certain tolerances. 
+//	 * Determine whether this UnitCell is similar to another one, within certain tolerances.
 //	 *  
-//	 * @param other IUnitCell to compare
+//	 * @param other UnitCell to compare
 //	 * @param lengthTol Double length tolerance (if null, default to 0.02 - 2%)
 //	 * @param angleTol Double angle tolerance (if null, default to 1degree)
 //	 * @return boolean true if this and other are same within tolerance
 //	 */
-//	boolean isSimilar(IUnitCell other, Double lengthTol, Double angleTol);
+//	boolean isSimilar(UnitCell other, Double lengthTol, Double angleTol);
 }

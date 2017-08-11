@@ -1,5 +1,5 @@
 package uk.co.norphos.crystallography.api;
 
-public interface ISpaceGroup {
+public interface SpaceGroup {
 
 }

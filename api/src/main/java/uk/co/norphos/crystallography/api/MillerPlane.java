@@ -127,7 +127,7 @@ public class MillerPlane implements Serializable, Comparable<MillerPlane> {
 	/**
 	 * Set the real-space interplane spacing of this family of 
 	 * {@link MillerPlane}s. Should be calculated from the Miller indices of 
-	 * the plane using the {@link IUnitCell#calculateDSpacing} method.
+	 * the plane using the {@link UnitCell#calculateDSpacing} method.
 	 * @param dSpacing double d-spacing of planes in Angstoms
 	 */
 	public void setDSpacing(double dSpacing) {
@@ -176,7 +176,7 @@ public class MillerPlane implements Serializable, Comparable<MillerPlane> {
 	/**
 	 * Change the calculated structure factor (F<sub>hkl</sub>) of the 
 	 * diffracted beam due to this set of {@link MillerPlane}s. This should be 
-	 * calculated using the {@link ICrystal}TODO method.
+	 * calculated using the {@link Crystal}TODO method.
 	 * @param structureFactor Double in units of electron scattering power 
 	 * (2.82x10<sup>-15</sup> m) for X-rays or scattering length 
 	 * (10<sup>-14</sup> m) for neutrons.

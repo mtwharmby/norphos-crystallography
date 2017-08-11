@@ -1,6 +1,6 @@
 package uk.co.norphos.crystallography.api;
 
-import uk.co.norphos.crystallography.api.maths.IMatrix;
+import uk.co.norphos.crystallography.api.maths.Matrix;
 
 import java.util.List;
 
@@ -9,20 +9,20 @@ import java.util.List;
  * @author Michael Wharmby
  *
  */
-public interface ICrystal {
+public interface Crystal {
 	
 	/**
 	 * Return the current unit cell (including the {@link Lattice}) of this {@
 	 * link ICrystal}.
-	 * @return IUnitCell current unit cell of this crystal
+	 * @return UnitCell current unit cell of this crystal
 	 */
-	IUnitCell getUnitCell();
+	UnitCell getUnitCell();
 	
 	/**
-	 * Update the unit cell (and {@link Lattice}) of this {@link ICrystal}.
-	 * @param unitCell IUnitCell describing the new lattice
+	 * Update the unit cell (and {@link Lattice}) of this {@link Crystal}.
+	 * @param unitCell UnitCell describing the new lattice
 	 */
-	void setUnitCell(IUnitCell unitCell);
+	void setUnitCell(UnitCell unitCell);
 	
 	/**
 	 * Calculate and return a list of the diffracted beams 
@@ -47,16 +47,16 @@ public interface ICrystal {
 	}
 	
 	/**
-	 * Return the current {@link ISpaceGroup} of this crystal.
-	 * @return {@link ISpaceGroup}
+	 * Return the current {@link SpaceGroup} of this crystal.
+	 * @return {@link SpaceGroup}
 	 */
-	ISpaceGroup getSpaceGroup();
+	SpaceGroup getSpaceGroup();
 	
 	/**
-	 * Change the symmetry of this crystal by updating the {@link ISpaceGroup}.
-	 * @param spaceGroup {@link ISpaceGroup}
+	 * Change the symmetry of this crystal by updating the {@link SpaceGroup}.
+	 * @param spaceGroup {@link SpaceGroup}
 	 */
-	void setSpaceGroup(ISpaceGroup spaceGroup);
+	void setSpaceGroup(SpaceGroup spaceGroup);
 	
 	/**
 	 * Return the list of symmetry unique atoms which make up this crystal 
@@ -92,16 +92,16 @@ public interface ICrystal {
 	}
 	
 	/**
-	 * Return the UB matrix of this {@link ICrystal}.
-	 * @return IMatrix
+	 * Return the UB matrix of this {@link Crystal}.
+	 * @return Matrix
 	 */
-	IMatrix getOrientationMatrix();
+	Matrix getOrientationMatrix();
 	
 	/**
-	 * Change the UB matrix of this {@link ICrystal}.
-	 * @param ubMatrix IMatrix
+	 * Change the UB matrix of this {@link Crystal}.
+	 * @param ubMatrix Matrix
 	 */
-	void setOrientationMatrix(IMatrix ubMatrix);
+	void setOrientationMatrix(Matrix ubMatrix);
 	
 	/**
 	 * Calculate the density of the crystal structure, determined from the 
