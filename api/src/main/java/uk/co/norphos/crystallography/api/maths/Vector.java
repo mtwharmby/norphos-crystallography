@@ -1,8 +1,8 @@
 package uk.co.norphos.crystallography.api.maths;
 
-public interface IVector {
+public interface Vector {
 
-    IVector subtract(IVector vector);
+    Vector subtract(Vector vector);
 
     double[] toArray();
 }

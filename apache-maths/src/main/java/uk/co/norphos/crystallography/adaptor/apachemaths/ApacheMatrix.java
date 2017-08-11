@@ -2,15 +2,14 @@ package uk.co.norphos.crystallography.adaptor.apachemaths;
 
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
-import org.apache.commons.math3.linear.RealVector;
-import uk.co.norphos.crystallography.api.maths.IMatrix;
-import uk.co.norphos.crystallography.api.maths.IVector;
+import uk.co.norphos.crystallography.api.maths.Matrix;
+import uk.co.norphos.crystallography.api.maths.Vector;
 
-public class Matrix implements IMatrix {
+public class ApacheMatrix implements Matrix {
 
     private RealMatrix matrix;
 
-    public Matrix(double[][] values) {
+    public ApacheMatrix(double[][] values) {
         matrix = MatrixUtils.createRealMatrix(values);
     }
 
@@ -20,7 +19,7 @@ public class Matrix implements IMatrix {
     }
 
     @Override
-    public IVector multiplyVector(IVector vector) {
-        return new Vector(multiplyVector(vector.toArray()));
+    public Vector multiplyVector(Vector vector) {
+        return new ApacheVector(multiplyVector(vector.toArray()));
     }
 }

@@ -2,18 +2,18 @@ package uk.co.norphos.crystallography.adaptor.apachemaths;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
-import uk.co.norphos.crystallography.api.maths.IVector;
+import uk.co.norphos.crystallography.api.maths.Vector;
 
-public class Vector implements IVector {
+public class ApacheVector implements Vector {
 
     private RealVector vector;
 
-    public Vector(double[] values) {
+    public ApacheVector(double[] values) {
         vector = new ArrayRealVector(values);
     }
 
     @Override
-    public IVector subtract(IVector vector) {
+    public Vector subtract(Vector vector) {
         return null;
     }
 
