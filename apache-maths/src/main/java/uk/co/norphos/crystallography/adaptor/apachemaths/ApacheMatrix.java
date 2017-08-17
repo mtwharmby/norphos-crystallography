@@ -22,4 +22,9 @@ public class ApacheMatrix implements Matrix {
     public Vector multiplyVector(Vector vector) {
         return new ApacheVector(multiplyVector(vector.toArray()));
     }
+
+    @Override
+    public double[][] toArray() {
+        return matrix.getData();
+    }
 }
