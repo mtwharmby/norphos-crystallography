@@ -168,8 +168,7 @@ public interface UnitCell extends Comparable<UnitCell> {
      * @return Vector in fractional coordinates of the current lattice
      */
     default Vector fractionalize(Vector cartVector) {
-//		return new Vector(getFractionalizationMatrix().multiply(cartVector.toArray()));
-        return null; //FIXME
+		return getFractionalizationMatrix().multiply(cartVector);
     }
 
     /**
@@ -180,8 +179,7 @@ public interface UnitCell extends Comparable<UnitCell> {
      * @return Vector in Cartesian coordinates
      */
     default Vector orthogonalize(Vector fracVector) {
-//		return new Vector(getOrthogonalizationMatrix().multiply(fracVector.toArray()));
-        return null; //FIXME
+		return getOrthogonalizationMatrix().multiply(fracVector);
     }
 
     /**
