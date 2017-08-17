@@ -21,4 +21,19 @@ public class ApacheVector implements Vector {
     public double[] toArray() {
         return vector.toArray();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ApacheVector that = (ApacheVector) o;
+
+        return vector.equals(that.vector);
+    }
+
+    @Override
+    public int hashCode() {
+        return vector.hashCode();
+    }
 }

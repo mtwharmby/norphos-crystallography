@@ -27,4 +27,19 @@ public class ApacheMatrix implements Matrix {
     public double[][] toArray() {
         return matrix.getData();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ApacheMatrix that = (ApacheMatrix) o;
+
+        return matrix.equals(that.matrix);
+    }
+
+    @Override
+    public int hashCode() {
+        return matrix.hashCode();
+    }
 }
