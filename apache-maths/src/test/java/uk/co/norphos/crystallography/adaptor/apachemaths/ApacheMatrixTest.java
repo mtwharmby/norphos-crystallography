@@ -23,7 +23,7 @@ public class ApacheMatrixTest {
         mat = new ApacheMatrix(matValsExtra);
 
         assertEquals("Wrong size", 12, mat.getSize());
-        assertArrayEquals("Wrong shape", new int[]{4, 3}, mat.getShape());
+        assertArrayEquals("Wrong shape", new int[]{matValsExtra.length, matValsExtra[0].length}, mat.getShape());
         assertEquals("Wrong value at (2,1)", 8d, mat.get(2,1), 0);
         assertEquals("Wrong value at (1,2)", 2d, mat.get(1,2), 0);
     }

@@ -15,7 +15,7 @@ public class ApacheMatrix implements Matrix {
 
     @Override
     public int[] getShape() {
-        return new int[]{matrix.getColumnDimension(), matrix.getRowDimension()};
+        return new int[]{matrix.getRowDimension(), matrix.getColumnDimension()};
     }
 
     @Override
