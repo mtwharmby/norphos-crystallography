@@ -34,13 +34,23 @@ public class ApacheVector implements Vector {
     }
 
     @Override
+    public Vector subtract(double[] vector) {
+        return subtract(new ApacheVector(vector));
+    }
+
+    @Override
     public Vector subtract(Vector vector) {
-        return null;
+        RealVector subtracted = this.vector.subtract(((ApacheVector)vector).getRealVector());
+        return new ApacheVector(subtracted.toArray());
     }
 
     @Override
     public double[] toArray() {
         return vector.toArray();
+    }
+
+    public RealVector getRealVector() {
+        return vector;
     }
 
     @Override
