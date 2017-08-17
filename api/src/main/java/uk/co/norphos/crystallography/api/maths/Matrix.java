@@ -1,10 +1,10 @@
 package uk.co.norphos.crystallography.api.maths;
 
-public interface Matrix {
+public interface Matrix extends MatrixLike {
 
-    double[] multiplyVector(double[] vector);
+    double[] multiply(double[] vector);
 
-    Vector multiplyVector(Vector vector);
+    Vector multiply(Vector vector);
 
     double[][] toArray();
 }

@@ -13,6 +13,27 @@ public class ApacheVector implements Vector {
     }
 
     @Override
+    public int[] getShape() {
+        return new int[]{vector.getDimension()};
+    }
+
+    @Override
+    public int getSize() {
+        return vector.getDimension();
+    }
+
+    @Override
+    public double get(int i) {
+        return get(i, 0);
+    }
+
+    @Override
+    public double get(int i, int j) {
+        if (j != 0) throw new IllegalArgumentException("Vector only has one dimension");
+        return vector.getEntry(i);
+    }
+
+    @Override
     public Vector subtract(Vector vector) {
         return null;
     }
@@ -36,4 +57,5 @@ public class ApacheVector implements Vector {
     public int hashCode() {
         return vector.hashCode();
     }
+
 }

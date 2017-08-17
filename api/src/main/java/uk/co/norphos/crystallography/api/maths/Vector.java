@@ -1,6 +1,8 @@
 package uk.co.norphos.crystallography.api.maths;
 
-public interface Vector {
+public interface Vector extends MatrixLike {
+
+    double get(int i);
 
     Vector subtract(Vector vector);
 

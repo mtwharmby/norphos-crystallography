@@ -18,6 +18,17 @@ public class ApacheMatrixTest {
     private double[][] matVals = new double[][]{{5.,4.,6.},{3.,1.,2.},{9.,8.,7.}};
 
     @Test
+    public void testBasicFunctions() {
+        double[][] matValsExtra = new double[][]{{5.,4.,6.},{3.,1.,2.},{9.,8.,7.},{21., 64., 75.}};
+        mat = new ApacheMatrix(matValsExtra);
+
+        assertEquals("Wrong size", 12, mat.getSize());
+        assertArrayEquals("Wrong shape", new int[]{4, 3}, mat.getShape());
+        assertEquals("Wrong value at (2,1)", 8d, mat.get(2,1), 0);
+        assertEquals("Wrong value at (1,2)", 2d, mat.get(1,2), 0);
+    }
+
+    @Test
     public void testToArray() {
         Matrix mat = new ApacheMatrix(matVals);
         assert2dArrayEquals("Output array different from that used in constructor", matVals, mat.toArray(), 0);
@@ -36,8 +47,8 @@ public class ApacheMatrixTest {
         double[] apacheVecExpect = apacheMat.operate(apacheVec).toArray();
 
         //Test arrays, then test vectors
-        assertArrayEquals("Array multiplication values differ", apacheArrExpect, mat.multiplyVector(vecVals), 0);
-        double[] vecProd = mat.multiplyVector(vec).toArray();
+        assertArrayEquals("Array multiplication values differ", apacheArrExpect, mat.multiply(vecVals), 0);
+        double[] vecProd = mat.multiply(vec).toArray();
         assertArrayEquals("ApacheVector multiplication values differ", apacheVecExpect, vecProd, 0);
     }
 }

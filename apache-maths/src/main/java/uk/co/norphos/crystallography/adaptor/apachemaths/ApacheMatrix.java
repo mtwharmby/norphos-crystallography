@@ -14,13 +14,28 @@ public class ApacheMatrix implements Matrix {
     }
 
     @Override
-    public double[] multiplyVector(double[] vector) {
+    public int[] getShape() {
+        return new int[]{matrix.getColumnDimension(), matrix.getRowDimension()};
+    }
+
+    @Override
+    public int getSize() {
+        return matrix.getColumnDimension() * matrix.getRowDimension();
+    }
+
+    @Override
+    public double get(int i, int j) {
+        return matrix.getEntry(i, j);
+    }
+
+    @Override
+    public double[] multiply(double[] vector) {
         return matrix.operate(vector);
     }
 
     @Override
-    public Vector multiplyVector(Vector vector) {
-        return new ApacheVector(multiplyVector(vector.toArray()));
+    public Vector multiply(Vector vector) {
+        return new ApacheVector(multiply(vector.toArray()));
     }
 
     @Override
@@ -42,4 +57,5 @@ public class ApacheMatrix implements Matrix {
     public int hashCode() {
         return matrix.hashCode();
     }
+
 }
