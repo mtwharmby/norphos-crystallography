@@ -5,4 +5,6 @@ public interface Matrix {
     double[] multiplyVector(double[] vector);
 
     Vector multiplyVector(Vector vector);
+
+    double[][] toArray();
 }
