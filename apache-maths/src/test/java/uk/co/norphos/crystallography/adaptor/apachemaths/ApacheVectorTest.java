@@ -26,9 +26,11 @@ public class ApacheVectorTest {
     }
 
     @Test
-    public void testSubtract() {
+    public void testSumSubtract() {
         Vector vecA = new ApacheVector(new double[]{10.,11.,12.});
         Vector vecB = new ApacheVector(new double[]{5., 3., 67.});
+
+        assertArrayEquals("Sum of vectors is wrong", new double[]{15., 14., 79.}, vecA.add(vecB).toArray(), 0);
 
         assertArrayEquals("Subtracting vector from itself gave non-zero result", new double[]{0,0,0}, vecA.subtract(vecA).toArray(), 0);
         assertArrayEquals("Subtracting vectors A-B gave wrong answer", new double[]{5.,8.,-55.}, vecA.subtract(vecB).toArray(), 0);

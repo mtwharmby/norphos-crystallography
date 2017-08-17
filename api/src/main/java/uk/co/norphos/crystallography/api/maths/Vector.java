@@ -4,6 +4,10 @@ public interface Vector extends MatrixLike {
 
     double get(int i);
 
+    Vector add(double[] vector);
+
+    Vector add(Vector vector);
+
     Vector subtract(double[] vector);
 
     Vector subtract(Vector vector);

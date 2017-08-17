@@ -34,6 +34,17 @@ public class ApacheVector implements Vector {
     }
 
     @Override
+    public Vector add(double[] vector) {
+        return add(new ApacheVector(vector));
+    }
+
+    @Override
+    public Vector add(Vector vector) {
+        RealVector summed = this.vector.add(((ApacheVector)vector).getRealVector());
+        return new ApacheVector(summed.toArray());
+    }
+
+    @Override
     public Vector subtract(double[] vector) {
         return subtract(new ApacheVector(vector));
     }
