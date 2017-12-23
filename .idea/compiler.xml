@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="apache-maths" />
+        <module name="apache-maths-adaptor" />
+        <module name="apache-maths-connector" />
+        <module name="api" />
+        <module name="toolkit" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="apache-maths" target="1.8" />
+      <module name="apache-maths-adaptor" target="1.8" />
+      <module name="apache-maths-connector" target="1.8" />
+      <module name="apachemaths" target="1.8" />
+      <module name="api" target="1.8" />
+      <module name="norphos-crystallography" target="1.8" />
+      <module name="toolkit" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
