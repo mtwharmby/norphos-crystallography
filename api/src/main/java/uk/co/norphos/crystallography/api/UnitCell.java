@@ -168,7 +168,7 @@ public interface UnitCell extends Comparable<UnitCell> {
      * @return Vector in fractional coordinates of the current lattice
      */
     default Vector fractionalize(Vector cartVector) {
-		return getFractionalizationMatrix().multiply(cartVector);
+        return getFractionalizationMatrix().multiply(cartVector);
     }
 
     /**
@@ -179,7 +179,7 @@ public interface UnitCell extends Comparable<UnitCell> {
      * @return Vector in Cartesian coordinates
      */
     default Vector orthogonalize(Vector fracVector) {
-		return getOrthogonalizationMatrix().multiply(fracVector);
+        return getOrthogonalizationMatrix().multiply(fracVector);
     }
 
     /**
@@ -251,30 +251,30 @@ public interface UnitCell extends Comparable<UnitCell> {
      * @return double angle between planes in radians
      */
     double calculateDihedralAngle(Vector site1, Vector site2, Vector site3, Vector site4);
-//	
-//	/**
-//	 * Maximum {@link MillerPlane} for the given d-spacing limit.
-//	 * 
-//	 * @param dSpacing in Angstrom<sup>-1<sup> TODO Right?
-//	 * @return MillerIndex maximum hkl observable
-//	 */
-//	MillerIndex getMaxMillerIndex(double dSpacing);
-//	
-//	/**
-//	 * Return the d-space value for a specific {@link MillerIndex}.
-//	 *  
-//	 * @param hkl {@link MillerPlane}
-//	 * @return double d-spacing in Angstrom<sup>-1<sup> TODO Right?
-//	 */
-//	double calculateDSpacing(MillerPlane hkl);
-//	
-//	/**
-//	 * Determine whether this UnitCell is similar to another one, within certain tolerances.
-//	 *  
-//	 * @param other UnitCell to compare
-//	 * @param lengthTol Double length tolerance (if null, default to 0.02 - 2%)
-//	 * @param angleTol Double angle tolerance (if null, default to 1degree)
-//	 * @return boolean true if this and other are same within tolerance
-//	 */
-//	boolean isSimilar(UnitCell other, Double lengthTol, Double angleTol);
+
+    /**
+     * Maximum {@link MillerPlane} for the given d-spacing limit.
+     *
+     * @param dSpacing in Angstrom<sup>-1<sup> TODO Right?
+     * @return MillerIndex maximum hkl observable
+     */
+    MillerPlane getMaxMillerIndex(double dSpacing);
+
+    /**
+     * Return the d-space value for a specific {@link MillerPlane}.
+     *
+     * @param hkl {@link MillerPlane}
+     * @return double d-spacing in Angstrom<sup>-1<sup> TODO Right?
+     */
+    double calculateDSpacing(MillerPlane hkl);
+//    
+//    /**
+//     * Determine whether this UnitCell is similar to another one, within certain tolerances.
+//     *  
+//     * @param other UnitCell to compare
+//     * @param lengthTol Double length tolerance (if null, default to 0.02 - 2%)
+//     * @param angleTol Double angle tolerance (if null, default to 1degree)
+//     * @return boolean true if this and other are same within tolerance
+//     */
+//    boolean isSimilar(UnitCell other, Double lengthTol, Double angleTol);
 }

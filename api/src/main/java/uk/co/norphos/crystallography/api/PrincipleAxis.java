@@ -9,6 +9,6 @@ package uk.co.norphos.crystallography.api;
  *
  */
 public enum PrincipleAxis {
-	A, B, C, NONE;
+    A, B, C, NONE
 
 }
