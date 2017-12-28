@@ -23,12 +23,12 @@ public class ApacheMathsFactoryTest {
     public void testMatrixBuild() {
         //Test building Matrix from double arrays
         double[][] inputArr = new double[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        Matrix fromArray = mathsFactory.buildMatrix(inputArr);
+        Matrix fromArray = mathsFactory.createMatrix(inputArr);
         assert2dArrayEquals("Matrix built from array not as expected", inputArr, fromArray.toArray(), 0d);
 
         //Test building Matrix from another Matrix
         ApacheMatrix apMat = new ApacheMatrix(inputArr);
-        Matrix fromMat = mathsFactory.buildMatrix(apMat);
+        Matrix fromMat = mathsFactory.createMatrix(apMat);
         assertEquals("Matrix built from matrix not as expected", apMat, fromMat);
     }
 
@@ -36,22 +36,22 @@ public class ApacheMathsFactoryTest {
     public void testVectorBuild() {
         //Test building Vector from double array
         double[] inputArr = new double[]{8, 6, 3};
-        Vector fromArray = mathsFactory.buildVector(inputArr);
+        Vector fromArray = mathsFactory.createVector(inputArr);
         assertArrayEquals("Vector built from array not as expected", inputArr, fromArray.toArray(), 0);
 
         //Test building Vector from another Vector
         ApacheVector apVec = new ApacheVector(inputArr);
-        Vector fromVec = mathsFactory.buildVector(apVec);
+        Vector fromVec = mathsFactory.createVector(apVec);
         assertEquals("Vector built from another Vector not as expected", apVec, fromVec);
     }
 
 
 
-//        Vector buildVector(double[] vector);
+//        Vector createVector(double[] vector);
 //
-//        Vector buildVector(Vector vector);
+//        Vector createVector(Vector vector);
 //
-//        Matrix buildMatrix(double[][] matrix);
+//        Matrix createMatrix(double[][] matrix);
 //
-//        Matrix buildMatrix(Matrix matr
+//        Matrix createMatrix(Matrix matr
 }

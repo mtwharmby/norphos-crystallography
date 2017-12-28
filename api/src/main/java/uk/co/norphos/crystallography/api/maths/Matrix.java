@@ -6,5 +6,7 @@ public interface Matrix extends MatrixLike {
 
     Vector multiply(Vector vector);
 
+    Matrix getInverse();
+
     double[][] toArray();
 }

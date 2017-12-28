@@ -8,22 +8,22 @@ public class ApacheMathsFactory implements MathsFactory {
 
 
     @Override
-    public Vector buildVector(double[] vector) {
+    public Vector createVector(double[] vector) {
         return new ApacheVector(vector);
     }
 
     @Override
-    public Vector buildVector(Vector vector) {
+    public Vector createVector(Vector vector) {
         return new ApacheVector(vector.toArray());
     }
 
     @Override
-    public Matrix buildMatrix(double[][] matrix) {
+    public Matrix createMatrix(double[][] matrix) {
         return new ApacheMatrix(matrix);
     }
 
     @Override
-    public Matrix buildMatrix(Matrix matrix) {
+    public Matrix createMatrix(Matrix matrix) {
         return new ApacheMatrix(matrix.toArray());
     }
 }
