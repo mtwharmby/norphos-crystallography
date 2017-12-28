@@ -8,5 +8,7 @@ public interface Matrix extends MatrixLike {
 
     Matrix getInverse();
 
+    double getDeterminant();
+
     double[][] toArray();
 }
