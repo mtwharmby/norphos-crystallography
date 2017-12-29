@@ -70,14 +70,17 @@ public class CrystallographyFactoryTest {
     @Test
     public void testLatticeFromMetricTensor() {
         when(mockMatrix.toArray()).thenReturn(cubicGMat);
+        when(mockMatrix.getDeterminant()).thenReturn(Math.pow(160.118936, 2));
         Lattice createdCubic = CrystallographyFactory.createLattice(mockMatrix);
         assertEquals("Wrong lattice created from cubic metric tensor", cubicLatt, createdCubic);
 
         when(mockMatrix.toArray()).thenReturn(orthoGMat);
+        when(mockMatrix.getDeterminant()).thenReturn(Math.pow(2926.626460, 2));
         Lattice createdOrtho = CrystallographyFactory.createLattice(mockMatrix);
         assertEquals("Wrong lattice created from orthorhombic metric tensor", orthoLatt, createdOrtho);
 
         when(mockMatrix.toArray()).thenReturn(tricGMat);
+        when(mockMatrix.getDeterminant()).thenReturn(Math.pow(415.482298, 2));
         Lattice createdTric = CrystallographyFactory.createLattice(mockMatrix);
         assertEquals("Wrong lattice created from triclinic metric tensor", tricLatt, createdTric);
     }

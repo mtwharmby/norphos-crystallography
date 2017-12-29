@@ -239,9 +239,9 @@ public class Lattice implements Serializable, Comparable<Lattice> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lattice lattice = (Lattice) o;
-        return Arrays.equals(lengths, lattice.lengths) &&
-                Arrays.equals(angles, lattice.angles) &&
-                Arrays.equals(anglesRadians, lattice.anglesRadians) &&
+        return arraysAlmostEqual(lengths, lattice.lengths, 1e-10) &&
+                arraysAlmostEqual(angles, lattice.angles, 1e-10) &&
+                arraysAlmostEqual(anglesRadians, lattice.anglesRadians, 1e-10) &&
                 Objects.equals(volume, lattice.volume) &&
                 principleAxis == lattice.principleAxis &&
                 crystalSystem == lattice.crystalSystem;
@@ -255,5 +255,15 @@ public class Lattice implements Serializable, Comparable<Lattice> {
         result = 31 * result + Arrays.hashCode(angles);
         result = 31 * result + Arrays.hashCode(anglesRadians);
         return result;
+    }
+
+    private boolean arraysAlmostEqual(double[] one, double[] two, double delta) {
+        if (one.length != two.length) return false;
+        for(int i = 0; i < one.length; i++) {
+            if (Math.abs(one[i] - two[i]) < delta) {
+                return true;
+            }
+        }
+        return false;
     }
 }
