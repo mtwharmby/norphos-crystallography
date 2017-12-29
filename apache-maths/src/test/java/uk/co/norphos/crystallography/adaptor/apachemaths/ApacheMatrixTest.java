@@ -8,6 +8,7 @@ import org.junit.Test;
 import uk.co.norphos.crystallography.api.maths.Matrix;
 import uk.co.norphos.crystallography.api.maths.Vector;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static uk.co.norphos.crystallography.adaptor.apachemaths.TestUtils.assert2dArrayEquals;
@@ -19,10 +20,10 @@ public class ApacheMatrixTest {
 
     @Test
     public void testBasicFunctions() {
-        double[][] matValsExtra = new double[][]{{5.,4.,6.},{3.,1.,2.},{9.,8.,7.},{21., 64., 75.}};
+        double[][] matValsExtra = new double[][]{{5.,4.,6.},{3.,1.,2.},{9.,8.,7.}};
         mat = new ApacheMatrix(matValsExtra);
 
-        assertEquals("Wrong size", 12, mat.getSize());
+        assertEquals("Wrong size", 9, mat.getSize());
         assertArrayEquals("Wrong shape", new int[]{matValsExtra.length, matValsExtra[0].length}, mat.getShape());
         assertEquals("Wrong value at (2,1)", 8d, mat.get(2,1), 0);
         assertEquals("Wrong value at (1,2)", 2d, mat.get(1,2), 0);
@@ -51,4 +52,29 @@ public class ApacheMatrixTest {
         double[] vecProd = mat.multiply(vec).toArray();
         assertArrayEquals("ApacheVector multiplication values differ", apacheVecExpect, vecProd, 0);
     }
+
+    @Test
+    public void testGetInverse() {
+        double[][] matVals = new double[][]{{1, 2, 3}, {0, 1, 4}, {5, 6, 0}};
+        Matrix mat = new ApacheMatrix(matVals);
+
+        double[][] invMatVals = new double[][]{{-24d, 18d, 5d}, {20d, -15d, -4d}, {-5d, 4d, 1d}};
+        Matrix invMat = new ApacheMatrix(invMatVals);
+
+        assert2dArrayEquals("Wrong inverse matrix calculated", invMatVals, mat.getInverse().toArray(), 1e-10);
+    }
+
+    @Test
+    public void testGetDeterminant() {
+        //2x2 case
+        double[][] matVals = new double[][]{{3, 8}, {4, 6}};
+        Matrix mat = new ApacheMatrix(matVals);
+        assertEquals("Wrong value for determinant of 2x2 matrix", -14d, mat.getDeterminant(), 1e-10);
+
+        //3x3 case
+        matVals = new double[][]{{6, 1, 1}, {4, -2, 5}, {2, 8, 7}};
+        mat = new ApacheMatrix((matVals));
+        assertEquals("Wrong value for determinant of 3x3 matrix", -306d, mat.getDeterminant(), 1e-10);
+    }
+
 }
