@@ -35,25 +35,7 @@ public class Lattice implements Serializable, Comparable<Lattice> {
      * @param ga double in degrees
      */
     public Lattice(double a, double b, double c, double al, double be, double ga) {
-        this(a, b, c, al, be, ga, null, CrystalSystem.TRICLINIC, PrincipleAxis.NONE);
-    }
-    
-    /**
-     * Construct {@link Lattice} object from distances a, b, c and angles 
-     * alpha, beta, gamma, volume and crystal system. Principle axis defaults 
-     * to NONE.
-     * 
-     * @param a double in Angstrom
-     * @param b double in Angstrom
-     * @param c double in Angstrom
-     * @param al double in degrees
-     * @param be double in degrees
-     * @param ga double in degrees
-     * @param volume Double in Angstrom<sup>3</sup>
-     * @param crystalSystem {@link CrystalSystem}
-     */
-    public Lattice(double a, double b, double c, double al, double be, double ga, double volume, CrystalSystem crystalSystem) {
-        this(a, b, c, al, be, ga, volume, crystalSystem, PrincipleAxis.NONE);
+        this(a, b, c, al, be, ga, null, CrystalSystem.UNKNOWN, PrincipleAxis.NONE);
     }
     
     /**

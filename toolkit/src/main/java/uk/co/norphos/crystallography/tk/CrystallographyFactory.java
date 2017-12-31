@@ -21,10 +21,17 @@ public class CrystallographyFactory {
          * Monoclinic - a != b != c; al = ga = 90 != be
          * Triclinic - a != b != c; al != be != ga
          */
+        //Any null lengths should be equal to the a parameter
+        Double[] noNullLengths = replaceNulls(lengths, lengths[0]);
+//         noNullAngles = replaceNulls(angles, angles[0]);
+        if (hasAllSameAngles(angles, false)) {
+            return CrystalSystem.RHOMBOHEDRAL;
+        }
 
-        cleanupLengths(lengths);
-        int nrEqualLengths = Collections.frequency(Arrays.asList(lengths), lengths[0]);
-        if (hasAllSameAngles(angles, true)) {
+        //We know all remaining null angles should be 90deg.
+        Double[] noNullAngles = replaceNulls(angles, 90d);
+        int nrEqualLengths = Collections.frequency(Arrays.asList(noNullLengths), noNullLengths[0]);
+        if (hasAllSameAngles(noNullAngles, true)) {
             if (nrEqualLengths == 3) {
                 return CrystalSystem.CUBIC;
             } else if (nrEqualLengths == 2) {
@@ -32,39 +39,41 @@ public class CrystallographyFactory {
             } else {
                 return CrystalSystem.ORTHORHOMBIC;
             }
-        } else if (hasAllSameAngles(angles, false)) {
-            return CrystalSystem.RHOMBOHEDRAL;
-        } else if (Arrays.asList(angles).contains(120d) && nrEqualLengths == 2) {
+        } else if (Arrays.asList(noNullAngles).contains(120d) && nrEqualLengths == 2) {
             return CrystalSystem.HEXAGONAL;
-        } else if (Collections.frequency(Arrays.asList(angles), 90d) == 2 && nrEqualLengths == 1) {
+        } else if (Collections.frequency(Arrays.asList(noNullAngles), 90d) == 2 && nrEqualLengths == 1) {
             return CrystalSystem.MONOCLINIC;
-        } else if (Collections.frequency(Arrays.asList(angles), 90d) <= 1 && (
-                !lengths[0].equals(lengths[1]) && !lengths[0].equals(lengths[2]) && !lengths[1].equals(lengths[2])
+        } else if (Collections.frequency(Arrays.asList(noNullAngles), 90d) <= 1 && (
+                !noNullLengths[0].equals(noNullLengths[1]) && !noNullLengths[0].equals(noNullLengths[2]) && !noNullLengths[1].equals(noNullLengths[2])
             )) {
             return CrystalSystem.TRICLINIC;
         }
         return CrystalSystem.UNKNOWN; //TODO Throw an error here instead? It's not really valid input.
     }
 
-    private static void cleanupLengths(Double[] lengths) {
-        //Cleanup the input lengths to remove nulls
-        if (lengths[1] == null) lengths[1] = lengths[0];
-        if (lengths[2] == null) lengths[2] = lengths[0];
-    }
-
     private static boolean hasAllSameAngles(Double[] angles, boolean ortho) {
-        boolean result = angles[0].equals(90d) == ortho;
-        return angles[0].equals(angles[1]) && angles[0].equals(angles[2]) && result;
+        try {
+            boolean result = (angles[0] == null || angles[0] == 90d) == ortho;
+            return angles[0].equals(angles[1]) && angles[0].equals(angles[2]) && result;
+        } catch (NullPointerException npe) {
+            return false;
+        }
     }
 
-    public static PrincipleAxis getPrincipalAxis(Double[] lengths, Double[] angles, CrystalSystem cSystem) {
+    private static Double[] replaceNulls(Double[] angles, double replacement) {
+        return Arrays.stream(angles).map(ang -> ang == null ? replacement : ang).toArray(Double[]::new);
+    }
+
+    public static PrincipleAxis getPrincipalAxis(Double[] angles, CrystalSystem cSystem) {
         if (cSystem.equals(CrystalSystem.HEXAGONAL) || cSystem.equals(CrystalSystem.TETRAGONAL)) {
             return PrincipleAxis.C;
         } if (cSystem.equals(CrystalSystem.MONOCLINIC)) {
+            //We know all null angles will be 90deg.
+            Double[] noNullAngles = replaceNulls(angles, 90d);
             List<Boolean> anglesCompared = new ArrayList<>(3); //[al-be, al-ga, be-ga]
-            anglesCompared.add(angles[0].equals(angles[1]));
-            anglesCompared.add(angles[0].equals(angles[2]));
-            anglesCompared.add(angles[1].equals(angles[2]));
+            anglesCompared.add(noNullAngles[0].equals(noNullAngles[1]));
+            anglesCompared.add(noNullAngles[0].equals(noNullAngles[2]));
+            anglesCompared.add(noNullAngles[1].equals(noNullAngles[2]));
 
             if (anglesCompared.get(0)) {
                 //ga different
@@ -86,9 +95,12 @@ public class CrystallographyFactory {
 
     public static Lattice createLattice(Double[] lengths, Double[] angles, Double volume) {
         CrystalSystem cSystem = getCrystalSystem(lengths, angles);
-        PrincipleAxis pAxis = getPrincipalAxis(lengths, angles, cSystem);
+        PrincipleAxis pAxis = getPrincipalAxis(angles, cSystem);
 
-        return new Lattice(lengths, angles, volume, cSystem, pAxis);
+        //Cleanup the input to remove nulls:
+        Double[] cleanedLengths = replaceNulls(lengths, lengths[0]);
+        Double[] cleanedAngles = cSystem.equals(CrystalSystem.RHOMBOHEDRAL) ? replaceNulls(angles, angles[0]) : replaceNulls(angles, 90d);
+        return new Lattice(cleanedLengths, cleanedAngles, volume, cSystem, pAxis);
     }
 
     public static Lattice createLattice(Matrix metricTensor) {

@@ -3,6 +3,7 @@ package uk.co.norphos.crystallography.tk;
 import org.junit.Before;
 import org.junit.Test;
 import uk.co.norphos.crystallography.api.Lattice;
+import uk.co.norphos.crystallography.api.PrincipleAxis;
 import uk.co.norphos.crystallography.api.maths.Matrix;
 
 import static org.junit.Assert.*;
@@ -14,10 +15,14 @@ public class CrystallographyFactoryTest {
 
     private Matrix mockMatrix;
 
-    private Lattice cubicLatt = new Lattice(5.43018, 5.43018, 5.43018, 90, 90, 90, 160.118936, CUBIC),
-            orthoLatt = new Lattice(23.49290, 6.34350, 19.63820, 90, 90, 90, 2926.626460, ORTHORHOMBIC),
-            monoLatt = new Lattice(5.145, 5.2075, 5.3107, 90, 99.23, 90, 140.445, MONOCLINIC),
-            tricLatt = new Lattice(7.19196, 8.12720, 8.12771, 82.4809, 69.2610, 69.2584, 415.482298, TRICLINIC);
+    private Lattice cubicLatt = new Lattice(5.43018, 5.43018, 5.43018, 90, 90, 90, 160.118936, CUBIC, PrincipleAxis.NONE),
+            cubicLattNoVol = new Lattice(5.43018, 5.43018, 5.43018, 90, 90, 90, null, CUBIC, PrincipleAxis.NONE),
+            orthoLatt = new Lattice(23.49290, 6.34350, 19.63820, 90, 90, 90, 2926.626460, ORTHORHOMBIC, PrincipleAxis.NONE),
+            orthoLattNoVol = new Lattice(23.49290, 6.34350, 19.63820, 90, 90, 90, null, ORTHORHOMBIC, PrincipleAxis.NONE),
+            monoLatt = new Lattice(5.145, 5.2075, 5.3107, 90, 99.23, 90, 140.445, MONOCLINIC, PrincipleAxis.B),
+            monoLattNoVol = new Lattice(5.145, 5.2075, 5.3107, 90, 99.23, 90, null, MONOCLINIC, PrincipleAxis.B),
+            tricLatt = new Lattice(7.19196, 8.12720, 8.12771, 82.4809, 69.2610, 69.2584, 415.482298, TRICLINIC, PrincipleAxis.NONE),
+            tricLattNoVol = new Lattice(7.19196, 8.12720, 8.12771, 82.4809, 69.2610, 69.2584, null, TRICLINIC, PrincipleAxis.NONE);
 
     private double[][] cubicGMat = new double[][]{{29.4868548324, 0, 0}, {0, 29.4868548324, 0}, {0, 0, 29.4868548324}},
             orthoGMat = new double[][]{{551.91635041, 0, 0}, {0, 40.23999225, 0}, {0, 0, 385.65889924}},
@@ -55,16 +60,16 @@ public class CrystallographyFactoryTest {
     @Test
     public void testLatticeFromParameters() {
         Lattice createdCubic = CrystallographyFactory.createLattice(5.43018, null, null, null, null, null);
-        assertEquals("Wrong lattice created for cubic", cubicLatt, createdCubic);
+        assertEquals("Wrong lattice created for cubic", cubicLattNoVol, createdCubic);
 
         Lattice createdOrtho = CrystallographyFactory.createLattice(23.49290, 6.34350, 19.63820, null, null, null);
-        assertEquals("Wrong lattice created for orthorhombic", orthoLatt, createdOrtho);
+        assertEquals("Wrong lattice created for orthorhombic", orthoLattNoVol, createdOrtho);
 
         Lattice createdMono = CrystallographyFactory.createLattice(5.145, 5.2075, 5.3107, null, 99.23, null);
-        assertEquals("Wrong lattice created for monoclinic", monoLatt, createdMono);
+        assertEquals("Wrong lattice created for monoclinic", monoLattNoVol, createdMono);
 
         Lattice createdTric = CrystallographyFactory.createLattice(7.19196, 8.12720, 8.12771, 82.4809, 69.2610, 69.2584);
-        assertEquals("Wrong lattice created for triclinic", tricLatt, createdTric);
+        assertEquals("Wrong lattice created for triclinic", tricLattNoVol, createdTric);
     }
 
     @Test
