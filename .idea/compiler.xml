@@ -18,9 +18,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="apache-maths" target="1.8" />
-      <module name="apache-maths-adaptor" target="1.8" />
-      <module name="apache-maths-connector" target="1.8" />
-      <module name="apachemaths" target="1.8" />
       <module name="api" target="1.8" />
       <module name="norphos-crystallography" target="1.8" />
       <module name="toolkit" target="1.8" />
